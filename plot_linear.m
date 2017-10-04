@@ -1,20 +1,29 @@
-function [ m,b, Rsq ] = plot_linear( x,y )
+function [ m,b, Rsq, handle ] = plot_linear( x,y, show_zero )
 % basic linear fitting taken from 
 % https://www.mathworks.com/help/matlab/data_analysis/linear-regression.html
+
+% Allowing us to assign NaN's if we dont wish to plot a point
+nan_bool = isnan(x) | isnan(y);
+
+x(nan_bool) = [];
+y(nan_bool) = [];
+
 scatter(x,y)
 hold on
 X = [ones(length(x),1) x];
 points = X\y;
 m = points(2);
 b = points(1);
-y_calc = m*x;
 
-plot(x,y_calc+b)
-xlabel('Voltage sqrt')
-ylabel('ln(Ia)')
-title('Linear Regression Relation Between ln(Ia) and sqrt(Vact) to find Io')
-grid on
-
+% Do we want to include orgin in our plots?
+if show_zero
+    x_with_zero = [x;0];
+    y_calc = m*x_with_zero;
+    handle = plot(x_with_zero,y_calc+b);
+else
+    y_calc = m*x;
+    handle = plot(x,y_calc+b);
+end
 yCalc = X*points;
 Rsq = 1 - sum((y - yCalc).^2)/sum((y - mean(y)).^2);
 end

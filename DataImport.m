@@ -15,13 +15,14 @@ for i = 1:length(data_list)
     
     Vset(:,i) = num_entry(1:end,1);
     Va(:,i) = num_entry(1:end,2);
-    Ia(:,i) = num_entry(1:end,3);
+    Ia(:,i) = num_entry(1:end,3)*1000;
     Vact(:,i) = num_entry(1:end,4);
     
     Va_init(i,1) = num_entry(1,6);
     Ia_init(i,1) = num_entry(1,7);
     Vf_init(i,1) = num_entry(1,8);
 end
+%Ia(5,1) = NaN(); % Choosing an outlier point
 
 Va_sqrt = sqrt(Va);
 Vact_sqrt = sqrt(Vact);
@@ -31,7 +32,7 @@ data = table(Ia_init, Va_init, Vf_init, Vset, Va, Ia, Vact,...
     Va_sqrt, Vact_sqrt, Ia_log);
 data.Properties.RowNames = entry_names;
 data.Properties.VariableUnits{'Ia_init'} = 'mA';
-data.Properties.VariableUnits{'Ia'} = 'mA';
+data.Properties.VariableUnits{'Ia'} = 'A';
 data.Properties.VariableUnits{'Va_init'} = 'V';
 data.Properties.VariableUnits{'Vf_init'} = 'V';
 data.Properties.VariableUnits{'Vset'} = 'V';
