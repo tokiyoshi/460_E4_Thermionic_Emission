@@ -1,4 +1,4 @@
-function [ m,b, Rsq, handle ] = plot_linear( x,y, show_zero )
+function [ m,b, Rsq, handle, m_se, b_se ] = plot_linear( x,y, show_zero )
 % basic linear fitting taken from 
 % https://www.mathworks.com/help/matlab/data_analysis/linear-regression.html
 
@@ -8,12 +8,17 @@ nan_bool = isnan(x) | isnan(y);
 x(nan_bool) = [];
 y(nan_bool) = [];
 
-scatter(x,y)
+h = scatter(x,y);
 hold on
 X = [ones(length(x),1) x];
-points = X\y;
-m = points(2);
-b = points(1);
+
+[p,stats] = robustfit(x,y);
+
+b_se = stats.se(1);
+m_se = stats.se(2);
+
+m = p(2);
+b = p(1);
 
 % Do we want to include orgin in our plots?
 if show_zero
@@ -24,7 +29,11 @@ else
     y_calc = m*x;
     handle = plot(x,y_calc+b);
 end
-yCalc = X*points;
+
+handle.Color = (h.CData)*0.75;
+
+yCalc = X*[p(2);p(1)];
 Rsq = 1 - sum((y - yCalc).^2)/sum((y - mean(y)).^2);
+
 end
 
