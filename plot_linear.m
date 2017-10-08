@@ -32,7 +32,7 @@ end
 
 handle.Color = (h.CData)*0.75;
 
-yCalc = X*[p(2);p(1)];
+yCalc = X*[p(1);p(2)];
 Rsq = 1 - sum((y - yCalc).^2)/sum((y - mean(y)).^2);
 
 end

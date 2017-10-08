@@ -1,5 +1,19 @@
 data = DataImport();
 
+ % Defaults for this blog post
+width = 3;     % Width in inches
+height = 3;    % Height in inches
+alw = 0.75;    % AxesLineWidth
+fsz = 14;      % Fontsize
+lw = 1.5;      % LineWidth
+msz = 8;       % MarkerSize
+set(0,'defaultLineLineWidth',lw);   % set the default line width to lw
+set(0,'defaultLineMarkerSize',msz); % set the default line marker size to msz
+set(0,'defaultLineLineWidth',lw);   % set the default line width to lw
+set(0,'defaultLineMarkerSize',msz); % set the default line marker size to msz
+set(gca, 'FontSize', fsz, 'LineWidth', alw); %<- Set properties
+
+
 % Initalizing some constants and arrays used later
 filiment_radius = 1.3*10^(-4);
 d_to3o2 = (filiment_radius*100) ^ (3/2);
@@ -70,6 +84,8 @@ hlt = text(...
     'Units', 'normalized',...
     'Interpreter','latex');
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+print('plot_1_Io', '-dpng', '-r300'); %<-Save as PNG with 300 DPI
+
 
 
 % Plotting Io and T to find work function
@@ -100,5 +116,7 @@ title(['Relation Between $\ln (\frac{I_o}{T^2})$ \& $\frac{1}{T}$ ',...
     'where $w_o$: ', num2str(wo,3), '$\pm$', num2str(wo_err,'%0.2f'),' eV'],'Interpreter','latex')
 A = exp(b);
 
+print('plot_2wo', '-dpng', '-r300'); %<-Save as PNG with 300 DPI
+
 % cleaning up workspace
-clearvars -except wo A data T m 
+%clearvars -except wo A data T m 

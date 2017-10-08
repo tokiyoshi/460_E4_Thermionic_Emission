@@ -10,8 +10,11 @@
 
 \usepackage{booktabs} % adding in table support
 
+\usepackage{siunitx} % adding nice scientific notation
+\usepackage{xfrac} % adding in slanted fractions
+
 \renewcommand{\arraystretch}{1.2} % make tables a bit larger (vertically)
-\setlength{\tabcolsep}{10pt}	  % make the table width larger
+\setlength{\tabcolsep}{5 pt}	  % make the table width larger
 \newdimen\heavyrulewidth
 \newdimen\lightrulewidth
 \heavyrulewidth=.12em  %make the top rule of a table heavy
@@ -33,3 +36,12 @@
 
 \widowpenalties 1 10000
 \raggedbottom
+
+
+%% Packages to include
+\usepackage{amsmath}
+
+%% creating step by step environment
+\usepackage{enumitem}
+\newlist{steps}{enumerate}{1}
+\setlist[steps, 1]{label = Step \arabic*}
